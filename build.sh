@@ -92,7 +92,7 @@ if [ -z "${godot_version}" ]; then
 fi
 
 IFS=- read version status <<< "$godot_version"
-echo "Building Godot ${version} ${status} from commit or branch ${git_treeish}."
+echo "Building Redot ${version} ${status} from commit or branch ${git_treeish}."
 read -p "Is this correct (y/n)? " choice
 case "$choice" in
   y|Y ) echo "yes";;
@@ -153,7 +153,7 @@ if [ ! -d "deps/angle" ]; then
   echo "Missing ANGLE libraries, downloading them."
   mkdir -p deps/angle
   pushd deps/angle
-  base_url=https://github.com/godotengine/godot-angle-static/releases/download/chromium%2F6601.2/godot-angle-static
+  base_url=https://github.com/Redot-Engine/redot-angle-static/releases/download/chromium%2F6601.2/godot-angle-static
   curl -L -o windows_arm64.zip $base_url-arm64-llvm-release.zip
   curl -L -o windows_x86_64.zip $base_url-x86_64-gcc-release.zip
   curl -L -o windows_x86_32.zip $base_url-x86_32-gcc-release.zip
@@ -171,9 +171,9 @@ if [ ! -d "deps/mesa" ]; then
   echo "Missing Mesa/NIR libraries, downloading them."
   mkdir -p deps/mesa
   pushd deps/mesa
-  curl -L -o mesa_arm64.zip https://github.com/godotengine/godot-nir-static/releases/download/23.1.9-1/godot-nir-static-arm64-llvm-release.zip
-  curl -L -o mesa_x86_64.zip https://github.com/godotengine/godot-nir-static/releases/download/23.1.9-1/godot-nir-static-x86_64-gcc-release.zip
-  curl -L -o mesa_x86_32.zip https://github.com/godotengine/godot-nir-static/releases/download/23.1.9-1/godot-nir-static-x86_32-gcc-release.zip
+  curl -L -o mesa_arm64.zip https://github.com/Redot-Engine/redot-nir-static/releases/download/23.1.9-1/godot-nir-static-arm64-llvm-release.zip
+  curl -L -o mesa_x86_64.zip https://github.com/Redot-Engine/redot-nir-static/releases/download/23.1.9-1/godot-nir-static-x86_64-gcc-release.zip
+  curl -L -o mesa_x86_32.zip https://github.com/Redot-Engine/redot-nir-static/releases/download/23.1.9-1/godot-nir-static-x86_32-gcc-release.zip
   unzip -o mesa_arm64.zip && rm -f mesa_arm64.zip
   unzip -o mesa_x86_64.zip && rm -f mesa_x86_64.zip
   unzip -o mesa_x86_32.zip && rm -f mesa_x86_32.zip
@@ -193,7 +193,7 @@ if [ ! -d "deps/keystore" ]; then
 fi
 
 if [ "${skip_git_checkout}" == 0 ]; then
-  git clone https://github.com/godotengine/godot git || /bin/true
+  git clone https://github.com/Redot-Engine/redot-engine git || /bin/true
   pushd git
   git checkout -b ${git_treeish} origin/${git_treeish} || git checkout ${git_treeish}
   git reset --hard
@@ -224,7 +224,7 @@ mkdir -p ${basedir}/out
 mkdir -p ${basedir}/out/logs
 mkdir -p ${basedir}/mono-glue
 
-export podman_run="${podman} run -it --rm --env BUILD_NAME --env GODOT_VERSION_STATUS --env NUM_CORES --env CLASSICAL=${build_classical} --env MONO=${build_mono} -v ${basedir}/godot-${godot_version}.tar.gz:/root/godot.tar.gz -v ${basedir}/mono-glue:/root/mono-glue -w /root/"
+export podman_run="${podman} run -it --rm --env BUILD_NAME --env GODOT_VERSION_STATUS --env NUM_CORES --env CLASSICAL=${build_classical} --env MONO=${build_mono} -v ${basedir}/redot-${godot_version}.tar.gz:/root/redot.tar.gz -v ${basedir}/mono-glue:/root/mono-glue -w /root/"
 export img_version=$IMAGE_VERSION
 
 mkdir -p ${basedir}/mono-glue
@@ -249,5 +249,5 @@ mkdir -p ${basedir}/out/ios
 ${podman_run} -v ${basedir}/build-ios:/root/build -v ${basedir}/out/ios:/root/out localhost/godot-ios:${img_version} bash build/build.sh 2>&1 | tee ${basedir}/out/logs/ios
 
 if [ ! -z "$SUDO_UID" ]; then
-  chown -R "${SUDO_UID}":"${SUDO_GID}" ${basedir}/git ${basedir}/out ${basedir}/mono-glue ${basedir}/godot*.tar.gz
+  chown -R "${SUDO_UID}":"${SUDO_GID}" ${basedir}/git ${basedir}/out ${basedir}/mono-glue ${basedir}/redot*.tar.gz
 fi

@@ -9,10 +9,10 @@ export OPTIONS="production=yes"
 export OPTIONS_MONO="module_mono_enabled=yes"
 export TERM=xterm
 
-rm -rf godot
-mkdir godot
-cd godot
-tar xf /root/godot.tar.gz --strip-components=1
+rm -rf redot
+mkdir redot
+cd redot
+tar xf /root/redot.tar.gz --strip-components=1
 
 # Environment variables and keystore needed for signing store editor build,
 # as well as signing and publishing to MavenCentral.
@@ -57,8 +57,8 @@ if [ "${CLASSICAL}" == "1" ]; then
 
   # Restart from a clean tarball, as we'll copy all the contents
   # outside the container for the MavenCentral upload.
-  rm -rf /root/godot/*
-  tar xf /root/godot.tar.gz --strip-components=1
+  rm -rf /root/redot/*
+  tar xf /root/redot.tar.gz --strip-components=1
 
   $SCONS platform=android arch=arm32 $OPTIONS target=template_debug
   $SCONS platform=android arch=arm32 $OPTIONS target=template_release
@@ -78,7 +78,7 @@ if [ "${CLASSICAL}" == "1" ]; then
   if [ "$store_release" == "yes" ]; then
     # Copy source folder with compiled libs so we can optionally use it
     # in a separate script to upload the templates to MavenCentral.
-    cp -r /root/godot /root/out/source/
+    cp -r /root/redot /root/out/source/
     # Backup ~/.gradle too so we can reuse all the downloaded stuff.
     cp -r /root/.gradle /root/out/source/.gradle
   fi

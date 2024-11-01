@@ -1,7 +1,7 @@
-# Godot in-container build scripts
+# Redot in-container build scripts
 
-Build scripts used for official Godot Engine releases using containers
-built from https://github.com/godotengine/build-containers
+Build scripts used for official Redot Engine releases using containers
+built from https://github.com/Redot-Engine/build-containers
 
 ## Disclaimer
 
@@ -14,7 +14,7 @@ this in a simple and user-friendly interface.
 
 ## Usage
 
-- Build containers using https://github.com/godotengine/build-containers
+- Build containers using https://github.com/Redot-Engine/build-containers
 - Copy `config.sh.in` as `config.sh` and configure it as you want.
 - Edit `build.sh` to properly reference those containers if local, or
   use `config.sh` to point to your own registry if you uploaded
@@ -22,10 +22,10 @@ this in a simple and user-friendly interface.
 - Build with `build.sh` (check `--help` for usage).
 - Package binaries with `build-release.sh` (check `--help` for usage).
 
-Example that builds Godot 3.2-stable Classical (not Mono):
+Example that builds Redot 4.3-stable Classical (not Mono):
 ```
-./build.sh -v 3.2-stable -g 3.2-stable -b classical
-./build-release.sh -v 3.2-stable -t 3.2.stable -b classical
+./build.sh -v 4.3-stable -g 4.3-stable -b classical
+./build-release.sh -v 4.3-stable -t 4.3.stable -b classical
 ```
 
 Again, this is intended for release managers and usability is not the
