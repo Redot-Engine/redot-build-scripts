@@ -27,10 +27,10 @@ export TERM=xterm
 
 source /root/emsdk/emsdk_env.sh
 
-rm -rf godot
-mkdir godot
-cd godot
-tar xf /root/godot.tar.gz --strip-components=1
+rm -rf redot
+mkdir redot
+cd redot
+tar xf /root/redot.tar.gz --strip-components=1
 
 # Classical
 
@@ -38,14 +38,14 @@ if [ "${CLASSICAL}" == "1" ]; then
   echo "Starting classical build for Web..."
 
   for i in {0..3}; do
-    cp -r /root/godot /root/godot$i
-    cd /root/godot$i
+    cp -r /root/redot /root/redot$i
+    cd /root/redot$i
     echo "$SCONS platform=web ${OPTIONS} ${JOBS[$i]}"
     $SCONS platform=web ${OPTIONS} ${JOBS[$i]} &
     pids[$i]=$!
   done
 
-  cd /root/godot
+  cd /root/redot
   echo "$SCONS platform=web ${OPTIONS} target=editor use_closure_compiler=yes"
   $SCONS platform=web ${OPTIONS} target=editor use_closure_compiler=yes &
   pid_editor=$!
@@ -56,8 +56,8 @@ if [ "${CLASSICAL}" == "1" ]; then
   wait $pid_editor
 
   for i in {0..3}; do
-    cp -r /root/godot /root/godot-nothreads$i
-    cd /root/godot-nothreads$i
+    cp -r /root/redot /root/redot-nothreads$i
+    cd /root/redot-nothreads$i
     echo "$SCONS platform=web ${OPTIONS} ${JOBS_NOTHREADS[$i]}"
     $SCONS platform=web ${OPTIONS} ${JOBS_NOTHREADS[$i]} &
     pids_nothreads[$i]=$!
@@ -68,12 +68,12 @@ if [ "${CLASSICAL}" == "1" ]; then
   done
 
   mkdir -p /root/out/tools
-  cp -rvp /root/godot/bin/*.editor*.zip /root/out/tools
+  cp -rvp /root/redot/bin/*.editor*.zip /root/out/tools
 
   mkdir -p /root/out/templates
   for i in {0..3}; do
-    cp -rvp /root/godot$i/bin/*.zip /root/out/templates
-    cp -rvp /root/godot-nothreads$i/bin/*.zip /root/out/templates
+    cp -rvp /root/redot$i/bin/*.zip /root/out/templates
+    cp -rvp /root/redot-nothreads$i/bin/*.zip /root/out/templates
   done
 fi
 

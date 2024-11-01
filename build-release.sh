@@ -33,10 +33,10 @@ sign_macos() {
   _is_mono="$3"
 
   if [[ "${_is_mono}" == "1" ]]; then
-    _appname="Godot_mono.app"
+    _appname="Redot_mono.app"
     _sharpdir="${_appname}/Contents/Resources/GodotSharp"
   else
-    _appname="Godot.app"
+    _appname="Redot.app"
   fi
 
   scp "${_reldir}/${_binname}.zip" "${OSX_HOST}:${_macos_tmpdir}"
@@ -202,7 +202,7 @@ export tmpdir="${basedir}/tmp"
 export templatesdir="${tmpdir}/templates"
 export templatesdir_mono="${tmpdir}/mono/templates"
 
-export godot_basename="Godot_v${godot_version}"
+export godot_basename="Redot_v${godot_version}"
 
 # Cleanup and setup
 
@@ -224,9 +224,9 @@ fi
 
 if [ "${make_tarball}" == "1" ]; then
 
-  zcat godot-${godot_version}.tar.gz | xz -c > ${reldir}/godot-${godot_version}.tar.xz
+  zcat redot-${godot_version}.tar.gz | xz -c > ${reldir}/redot-${godot_version}.tar.xz
   pushd ${reldir}
-  sha256sum godot-${godot_version}.tar.xz > godot-${godot_version}.tar.xz.sha256
+  sha256sum redot-${godot_version}.tar.xz > redot-${godot_version}.tar.xz.sha256
   popd
 
 fi
@@ -239,90 +239,90 @@ if [ "${build_classical}" == "1" ]; then
 
   # Editor
   binname="${godot_basename}_linux.x86_64"
-  cp out/linux/x86_64/tools/godot.linuxbsd.editor.x86_64 ${binname}
+  cp out/linux/x86_64/tools/redot.linuxbsd.editor.x86_64 ${binname}
   zip -q -9 "${reldir}/${binname}.zip" ${binname}
   rm ${binname}
 
   binname="${godot_basename}_linux.x86_32"
-  cp out/linux/x86_32/tools/godot.linuxbsd.editor.x86_32 ${binname}
+  cp out/linux/x86_32/tools/redot.linuxbsd.editor.x86_32 ${binname}
   zip -q -9 "${reldir}/${binname}.zip" ${binname}
   rm ${binname}
 
   binname="${godot_basename}_linux.arm64"
-  cp out/linux/arm64/tools/godot.linuxbsd.editor.arm64 ${binname}
+  cp out/linux/arm64/tools/redot.linuxbsd.editor.arm64 ${binname}
   zip -q -9 "${reldir}/${binname}.zip" ${binname}
   rm ${binname}
 
   binname="${godot_basename}_linux.arm32"
-  cp out/linux/arm32/tools/godot.linuxbsd.editor.arm32 ${binname}
+  cp out/linux/arm32/tools/redot.linuxbsd.editor.arm32 ${binname}
   zip -q -9 "${reldir}/${binname}.zip" ${binname}
   rm ${binname}
 
   # Templates
-  cp out/linux/x86_64/templates/godot.linuxbsd.template_release.x86_64 ${templatesdir}/linux_release.x86_64
-  cp out/linux/x86_64/templates/godot.linuxbsd.template_debug.x86_64 ${templatesdir}/linux_debug.x86_64
-  cp out/linux/x86_32/templates/godot.linuxbsd.template_release.x86_32 ${templatesdir}/linux_release.x86_32
-  cp out/linux/x86_32/templates/godot.linuxbsd.template_debug.x86_32 ${templatesdir}/linux_debug.x86_32
-  cp out/linux/arm64/templates/godot.linuxbsd.template_release.arm64 ${templatesdir}/linux_release.arm64
-  cp out/linux/arm64/templates/godot.linuxbsd.template_debug.arm64 ${templatesdir}/linux_debug.arm64
-  cp out/linux/arm32/templates/godot.linuxbsd.template_release.arm32 ${templatesdir}/linux_release.arm32
-  cp out/linux/arm32/templates/godot.linuxbsd.template_debug.arm32 ${templatesdir}/linux_debug.arm32
+  cp out/linux/x86_64/templates/redot.linuxbsd.template_release.x86_64 ${templatesdir}/linux_release.x86_64
+  cp out/linux/x86_64/templates/redot.linuxbsd.template_debug.x86_64 ${templatesdir}/linux_debug.x86_64
+  cp out/linux/x86_32/templates/redot.linuxbsd.template_release.x86_32 ${templatesdir}/linux_release.x86_32
+  cp out/linux/x86_32/templates/redot.linuxbsd.template_debug.x86_32 ${templatesdir}/linux_debug.x86_32
+  cp out/linux/arm64/templates/redot.linuxbsd.template_release.arm64 ${templatesdir}/linux_release.arm64
+  cp out/linux/arm64/templates/redot.linuxbsd.template_debug.arm64 ${templatesdir}/linux_debug.arm64
+  cp out/linux/arm32/templates/redot.linuxbsd.template_release.arm32 ${templatesdir}/linux_release.arm32
+  cp out/linux/arm32/templates/redot.linuxbsd.template_debug.arm32 ${templatesdir}/linux_debug.arm32
 
   ## Windows (Classical) ##
 
   # Editor
   binname="${godot_basename}_win64.exe"
   wrpname="${godot_basename}_win64_console.exe"
-  cp out/windows/x86_64/tools/godot.windows.editor.x86_64.exe ${binname}
+  cp out/windows/x86_64/tools/redot.windows.editor.x86_64.exe ${binname}
   sign_windows ${binname}
-  cp out/windows/x86_64/tools/godot.windows.editor.x86_64.console.exe ${wrpname}
+  cp out/windows/x86_64/tools/redot.windows.editor.x86_64.console.exe ${wrpname}
   sign_windows ${wrpname}
   zip -q -9 "${reldir}/${binname}.zip" ${binname} ${wrpname}
   rm ${binname} ${wrpname}
 
   binname="${godot_basename}_win32.exe"
   wrpname="${godot_basename}_win32_console.exe"
-  cp out/windows/x86_32/tools/godot.windows.editor.x86_32.exe ${binname}
+  cp out/windows/x86_32/tools/redot.windows.editor.x86_32.exe ${binname}
   sign_windows ${binname}
-  cp out/windows/x86_32/tools/godot.windows.editor.x86_32.console.exe ${wrpname}
+  cp out/windows/x86_32/tools/redot.windows.editor.x86_32.console.exe ${wrpname}
   sign_windows ${wrpname}
   zip -q -9 "${reldir}/${binname}.zip" ${binname} ${wrpname}
   rm ${binname} ${wrpname}
 
   binname="${godot_basename}_windows_arm64.exe"
   wrpname="${godot_basename}_windows_arm64_console.exe"
-  cp out/windows/arm64/tools/godot.windows.editor.arm64.llvm.exe ${binname}
+  cp out/windows/arm64/tools/redot.windows.editor.arm64.llvm.exe ${binname}
   sign_windows ${binname}
-  cp out/windows/arm64/tools/godot.windows.editor.arm64.llvm.console.exe ${wrpname}
+  cp out/windows/arm64/tools/redot.windows.editor.arm64.llvm.console.exe ${wrpname}
   sign_windows ${wrpname}
   zip -q -9 "${reldir}/${binname}.zip" ${binname} ${wrpname}
   rm ${binname} ${wrpname}
 
   # Templates
-  cp out/windows/x86_64/templates/godot.windows.template_release.x86_64.exe ${templatesdir}/windows_release_x86_64.exe
-  cp out/windows/x86_64/templates/godot.windows.template_debug.x86_64.exe ${templatesdir}/windows_debug_x86_64.exe
-  cp out/windows/x86_32/templates/godot.windows.template_release.x86_32.exe ${templatesdir}/windows_release_x86_32.exe
-  cp out/windows/x86_32/templates/godot.windows.template_debug.x86_32.exe ${templatesdir}/windows_debug_x86_32.exe
-  cp out/windows/arm64/templates/godot.windows.template_release.arm64.llvm.exe ${templatesdir}/windows_release_arm64.exe
-  cp out/windows/arm64/templates/godot.windows.template_debug.arm64.llvm.exe ${templatesdir}/windows_debug_arm64.exe
-  cp out/windows/x86_64/templates/godot.windows.template_release.x86_64.console.exe ${templatesdir}/windows_release_x86_64_console.exe
-  cp out/windows/x86_64/templates/godot.windows.template_debug.x86_64.console.exe ${templatesdir}/windows_debug_x86_64_console.exe
-  cp out/windows/x86_32/templates/godot.windows.template_release.x86_32.console.exe ${templatesdir}/windows_release_x86_32_console.exe
-  cp out/windows/x86_32/templates/godot.windows.template_debug.x86_32.console.exe ${templatesdir}/windows_debug_x86_32_console.exe
-  cp out/windows/arm64/templates/godot.windows.template_release.arm64.llvm.console.exe ${templatesdir}/windows_release_arm64_console.exe
-  cp out/windows/arm64/templates/godot.windows.template_debug.arm64.llvm.console.exe ${templatesdir}/windows_debug_arm64_console.exe
+  cp out/windows/x86_64/templates/redot.windows.template_release.x86_64.exe ${templatesdir}/windows_release_x86_64.exe
+  cp out/windows/x86_64/templates/redot.windows.template_debug.x86_64.exe ${templatesdir}/windows_debug_x86_64.exe
+  cp out/windows/x86_32/templates/redot.windows.template_release.x86_32.exe ${templatesdir}/windows_release_x86_32.exe
+  cp out/windows/x86_32/templates/redot.windows.template_debug.x86_32.exe ${templatesdir}/windows_debug_x86_32.exe
+  cp out/windows/arm64/templates/redot.windows.template_release.arm64.llvm.exe ${templatesdir}/windows_release_arm64.exe
+  cp out/windows/arm64/templates/redot.windows.template_debug.arm64.llvm.exe ${templatesdir}/windows_debug_arm64.exe
+  cp out/windows/x86_64/templates/redot.windows.template_release.x86_64.console.exe ${templatesdir}/windows_release_x86_64_console.exe
+  cp out/windows/x86_64/templates/redot.windows.template_debug.x86_64.console.exe ${templatesdir}/windows_debug_x86_64_console.exe
+  cp out/windows/x86_32/templates/redot.windows.template_release.x86_32.console.exe ${templatesdir}/windows_release_x86_32_console.exe
+  cp out/windows/x86_32/templates/redot.windows.template_debug.x86_32.console.exe ${templatesdir}/windows_debug_x86_32_console.exe
+  cp out/windows/arm64/templates/redot.windows.template_release.arm64.llvm.console.exe ${templatesdir}/windows_release_arm64_console.exe
+  cp out/windows/arm64/templates/redot.windows.template_debug.arm64.llvm.console.exe ${templatesdir}/windows_debug_arm64_console.exe
 
   ## macOS (Classical) ##
 
   # Editor
   binname="${godot_basename}_macos.universal"
-  rm -rf Godot.app
-  cp -r git/misc/dist/macos_tools.app Godot.app
-  mkdir -p Godot.app/Contents/MacOS
-  cp out/macos/tools/godot.macos.editor.universal Godot.app/Contents/MacOS/Godot
-  chmod +x Godot.app/Contents/MacOS/Godot
-  zip -q -9 -r "${reldir}/${binname}.zip" Godot.app
-  rm -rf Godot.app
+  rm -rf Redot.app
+  cp -r git/misc/dist/macos_tools.app Redot.app
+  mkdir -p Redot.app/Contents/MacOS
+  cp out/macos/tools/redot.macos.editor.universal Redot.app/Contents/MacOS/Godot
+  chmod +x Redot.app/Contents/MacOS/Godot
+  zip -q -9 -r "${reldir}/${binname}.zip" Redot.app
+  rm -rf Redot.app
   sign_macos ${reldir} ${binname} 0
 
   # Templates
@@ -330,8 +330,8 @@ if [ "${build_classical}" == "1" ]; then
   cp -r git/misc/dist/macos_template.app .
   mkdir -p macos_template.app/Contents/MacOS
 
-  cp out/macos/templates/godot.macos.template_release.universal macos_template.app/Contents/MacOS/godot_macos_release.universal
-  cp out/macos/templates/godot.macos.template_debug.universal macos_template.app/Contents/MacOS/godot_macos_debug.universal
+  cp out/macos/templates/redot.macos.template_release.universal macos_template.app/Contents/MacOS/godot_macos_release.universal
+  cp out/macos/templates/redot.macos.template_debug.universal macos_template.app/Contents/MacOS/godot_macos_debug.universal
   chmod +x macos_template.app/Contents/MacOS/godot_macos*
   zip -q -9 -r "${templatesdir}/macos.zip" macos_template.app
   rm -rf macos_template.app
@@ -340,23 +340,23 @@ if [ "${build_classical}" == "1" ]; then
   ## Web (Classical) ##
 
   # Editor
-  unzip out/web/tools/godot.web.editor.wasm32.zip -d ${webdir}/
+  unzip out/web/tools/redot.web.editor.wasm32.zip -d ${webdir}/
   brotli --keep --force --quality=11 ${webdir}/*
   binname="${godot_basename}_web_editor.zip"
-  cp out/web/tools/godot.web.editor.wasm32.zip ${reldir}/${binname}
+  cp out/web/tools/redot.web.editor.wasm32.zip ${reldir}/${binname}
 
   # Templates
-  cp out/web/templates/godot.web.template_release.wasm32.zip ${templatesdir}/web_release.zip
-  cp out/web/templates/godot.web.template_debug.wasm32.zip ${templatesdir}/web_debug.zip
+  cp out/web/templates/redot.web.template_release.wasm32.zip ${templatesdir}/web_release.zip
+  cp out/web/templates/redot.web.template_debug.wasm32.zip ${templatesdir}/web_debug.zip
 
-  cp out/web/templates/godot.web.template_release.wasm32.nothreads.zip ${templatesdir}/web_nothreads_release.zip
-  cp out/web/templates/godot.web.template_debug.wasm32.nothreads.zip ${templatesdir}/web_nothreads_debug.zip
+  cp out/web/templates/redot.web.template_release.wasm32.nothreads.zip ${templatesdir}/web_nothreads_release.zip
+  cp out/web/templates/redot.web.template_debug.wasm32.nothreads.zip ${templatesdir}/web_nothreads_debug.zip
 
-  cp out/web/templates/godot.web.template_release.wasm32.dlink.zip ${templatesdir}/web_dlink_release.zip
-  cp out/web/templates/godot.web.template_debug.wasm32.dlink.zip ${templatesdir}/web_dlink_debug.zip
+  cp out/web/templates/redot.web.template_release.wasm32.dlink.zip ${templatesdir}/web_dlink_release.zip
+  cp out/web/templates/redot.web.template_debug.wasm32.dlink.zip ${templatesdir}/web_dlink_debug.zip
 
-  cp out/web/templates/godot.web.template_release.wasm32.nothreads.dlink.zip ${templatesdir}/web_dlink_nothreads_release.zip
-  cp out/web/templates/godot.web.template_debug.wasm32.nothreads.dlink.zip ${templatesdir}/web_dlink_nothreads_debug.zip
+  cp out/web/templates/redot.web.template_release.wasm32.nothreads.dlink.zip ${templatesdir}/web_dlink_nothreads_release.zip
+  cp out/web/templates/redot.web.template_debug.wasm32.nothreads.dlink.zip ${templatesdir}/web_dlink_nothreads_debug.zip
 
   ## Android (Classical) ##
 
@@ -416,41 +416,41 @@ if [ "${build_mono}" == "1" ]; then
   # Editor
   binbasename="${godot_basename}_mono_linux"
   mkdir -p ${binbasename}_x86_64
-  cp out/linux/x86_64/tools-mono/godot.linuxbsd.editor.x86_64.mono ${binbasename}_x86_64/${binbasename}.x86_64
+  cp out/linux/x86_64/tools-mono/redot.linuxbsd.editor.x86_64.mono ${binbasename}_x86_64/${binbasename}.x86_64
   cp -rp out/linux/x86_64/tools-mono/GodotSharp ${binbasename}_x86_64/
   zip -r -q -9 "${reldir_mono}/${binbasename}_x86_64.zip" ${binbasename}_x86_64
   rm -rf ${binbasename}_x86_64
 
   binbasename="${godot_basename}_mono_linux"
   mkdir -p ${binbasename}_x86_32
-  cp out/linux/x86_32/tools-mono/godot.linuxbsd.editor.x86_32.mono ${binbasename}_x86_32/${binbasename}.x86_32
+  cp out/linux/x86_32/tools-mono/redot.linuxbsd.editor.x86_32.mono ${binbasename}_x86_32/${binbasename}.x86_32
   cp -rp out/linux/x86_32/tools-mono/GodotSharp/ ${binbasename}_x86_32/
   zip -r -q -9 "${reldir_mono}/${binbasename}_x86_32.zip" ${binbasename}_x86_32
   rm -rf ${binbasename}_x86_32
 
   binbasename="${godot_basename}_mono_linux"
   mkdir -p ${binbasename}_arm64
-  cp out/linux/arm64/tools-mono/godot.linuxbsd.editor.arm64.mono ${binbasename}_arm64/${binbasename}.arm64
+  cp out/linux/arm64/tools-mono/redot.linuxbsd.editor.arm64.mono ${binbasename}_arm64/${binbasename}.arm64
   cp -rp out/linux/arm64/tools-mono/GodotSharp/ ${binbasename}_arm64/
   zip -r -q -9 "${reldir_mono}/${binbasename}_arm64.zip" ${binbasename}_arm64
   rm -rf ${binbasename}_arm64
 
   binbasename="${godot_basename}_mono_linux"
   mkdir -p ${binbasename}_arm32
-  cp out/linux/arm32/tools-mono/godot.linuxbsd.editor.arm32.mono ${binbasename}_arm32/${binbasename}.arm32
+  cp out/linux/arm32/tools-mono/redot.linuxbsd.editor.arm32.mono ${binbasename}_arm32/${binbasename}.arm32
   cp -rp out/linux/arm32/tools-mono/GodotSharp/ ${binbasename}_arm32/
   zip -r -q -9 "${reldir_mono}/${binbasename}_arm32.zip" ${binbasename}_arm32
   rm -rf ${binbasename}_arm32
 
   # Templates
-  cp out/linux/x86_64/templates-mono/godot.linuxbsd.template_debug.x86_64.mono ${templatesdir_mono}/linux_debug.x86_64
-  cp out/linux/x86_64/templates-mono/godot.linuxbsd.template_release.x86_64.mono ${templatesdir_mono}/linux_release.x86_64
-  cp out/linux/x86_32/templates-mono/godot.linuxbsd.template_debug.x86_32.mono ${templatesdir_mono}/linux_debug.x86_32
-  cp out/linux/x86_32/templates-mono/godot.linuxbsd.template_release.x86_32.mono ${templatesdir_mono}/linux_release.x86_32
-  cp out/linux/arm64/templates-mono/godot.linuxbsd.template_debug.arm64.mono ${templatesdir_mono}/linux_debug.arm64
-  cp out/linux/arm64/templates-mono/godot.linuxbsd.template_release.arm64.mono ${templatesdir_mono}/linux_release.arm64
-  cp out/linux/arm32/templates-mono/godot.linuxbsd.template_debug.arm32.mono ${templatesdir_mono}/linux_debug.arm32
-  cp out/linux/arm32/templates-mono/godot.linuxbsd.template_release.arm32.mono ${templatesdir_mono}/linux_release.arm32
+  cp out/linux/x86_64/templates-mono/redot.linuxbsd.template_debug.x86_64.mono ${templatesdir_mono}/linux_debug.x86_64
+  cp out/linux/x86_64/templates-mono/redot.linuxbsd.template_release.x86_64.mono ${templatesdir_mono}/linux_release.x86_64
+  cp out/linux/x86_32/templates-mono/redot.linuxbsd.template_debug.x86_32.mono ${templatesdir_mono}/linux_debug.x86_32
+  cp out/linux/x86_32/templates-mono/redot.linuxbsd.template_release.x86_32.mono ${templatesdir_mono}/linux_release.x86_32
+  cp out/linux/arm64/templates-mono/redot.linuxbsd.template_debug.arm64.mono ${templatesdir_mono}/linux_debug.arm64
+  cp out/linux/arm64/templates-mono/redot.linuxbsd.template_release.arm64.mono ${templatesdir_mono}/linux_release.arm64
+  cp out/linux/arm32/templates-mono/redot.linuxbsd.template_debug.arm32.mono ${templatesdir_mono}/linux_debug.arm32
+  cp out/linux/arm32/templates-mono/redot.linuxbsd.template_release.arm32.mono ${templatesdir_mono}/linux_release.arm32
 
   ## Windows (Mono) ##
 
@@ -458,10 +458,10 @@ if [ "${build_mono}" == "1" ]; then
   binname="${godot_basename}_mono_win64"
   wrpname="${godot_basename}_mono_win64_console"
   mkdir -p ${binname}
-  cp out/windows/x86_64/tools-mono/godot.windows.editor.x86_64.mono.exe ${binname}/${binname}.exe
+  cp out/windows/x86_64/tools-mono/redot.windows.editor.x86_64.mono.exe ${binname}/${binname}.exe
   sign_windows ${binname}/${binname}.exe
   cp -rp out/windows/x86_64/tools-mono/GodotSharp ${binname}/
-  cp out/windows/x86_64/tools-mono/godot.windows.editor.x86_64.mono.console.exe ${binname}/${wrpname}.exe
+  cp out/windows/x86_64/tools-mono/redot.windows.editor.x86_64.mono.console.exe ${binname}/${wrpname}.exe
   sign_windows ${binname}/${wrpname}.exe
   zip -r -q -9 "${reldir_mono}/${binname}.zip" ${binname}
   rm -rf ${binname}
@@ -469,10 +469,10 @@ if [ "${build_mono}" == "1" ]; then
   binname="${godot_basename}_mono_win32"
   wrpname="${godot_basename}_mono_win32_console"
   mkdir -p ${binname}
-  cp out/windows/x86_32/tools-mono/godot.windows.editor.x86_32.mono.exe ${binname}/${binname}.exe
+  cp out/windows/x86_32/tools-mono/redot.windows.editor.x86_32.mono.exe ${binname}/${binname}.exe
   sign_windows ${binname}/${binname}.exe
   cp -rp out/windows/x86_32/tools-mono/GodotSharp ${binname}/
-  cp out/windows/x86_32/tools-mono/godot.windows.editor.x86_32.mono.console.exe ${binname}/${wrpname}.exe
+  cp out/windows/x86_32/tools-mono/redot.windows.editor.x86_32.mono.console.exe ${binname}/${wrpname}.exe
   sign_windows ${binname}/${wrpname}.exe
   zip -r -q -9 "${reldir_mono}/${binname}.zip" ${binname}
   rm -rf ${binname}
@@ -480,27 +480,27 @@ if [ "${build_mono}" == "1" ]; then
   binname="${godot_basename}_mono_windows_arm64"
   wrpname="${godot_basename}_mono_windows_arm64_console"
   mkdir -p ${binname}
-  cp out/windows/arm64/tools-mono/godot.windows.editor.arm64.llvm.mono.exe ${binname}/${binname}.exe
+  cp out/windows/arm64/tools-mono/redot.windows.editor.arm64.llvm.mono.exe ${binname}/${binname}.exe
   sign_windows ${binname}/${binname}.exe
   cp -rp out/windows/arm64/tools-mono/GodotSharp ${binname}/
-  cp out/windows/arm64/tools-mono/godot.windows.editor.arm64.llvm.mono.console.exe ${binname}/${wrpname}.exe
+  cp out/windows/arm64/tools-mono/redot.windows.editor.arm64.llvm.mono.console.exe ${binname}/${wrpname}.exe
   sign_windows ${binname}/${wrpname}.exe
   zip -r -q -9 "${reldir_mono}/${binname}.zip" ${binname}
   rm -rf ${binname}
 
   # Templates
-  cp out/windows/x86_64/templates-mono/godot.windows.template_debug.x86_64.mono.exe ${templatesdir_mono}/windows_debug_x86_64.exe
-  cp out/windows/x86_64/templates-mono/godot.windows.template_release.x86_64.mono.exe ${templatesdir_mono}/windows_release_x86_64.exe
-  cp out/windows/x86_32/templates-mono/godot.windows.template_debug.x86_32.mono.exe ${templatesdir_mono}/windows_debug_x86_32.exe
-  cp out/windows/x86_32/templates-mono/godot.windows.template_release.x86_32.mono.exe ${templatesdir_mono}/windows_release_x86_32.exe
-  cp out/windows/arm64/templates-mono/godot.windows.template_debug.arm64.llvm.mono.exe ${templatesdir_mono}/windows_debug_arm64.exe
-  cp out/windows/arm64/templates-mono/godot.windows.template_release.arm64.llvm.mono.exe ${templatesdir_mono}/windows_release_arm64.exe
-  cp out/windows/x86_64/templates-mono/godot.windows.template_debug.x86_64.mono.console.exe ${templatesdir_mono}/windows_debug_x86_64_console.exe
-  cp out/windows/x86_64/templates-mono/godot.windows.template_release.x86_64.mono.console.exe ${templatesdir_mono}/windows_release_x86_64_console.exe
-  cp out/windows/x86_32/templates-mono/godot.windows.template_debug.x86_32.mono.console.exe ${templatesdir_mono}/windows_debug_x86_32_console.exe
-  cp out/windows/x86_32/templates-mono/godot.windows.template_release.x86_32.mono.console.exe ${templatesdir_mono}/windows_release_x86_32_console.exe
-  cp out/windows/arm64/templates-mono/godot.windows.template_debug.arm64.llvm.mono.console.exe ${templatesdir_mono}/windows_debug_arm64_console.exe
-  cp out/windows/arm64/templates-mono/godot.windows.template_release.arm64.llvm.mono.console.exe ${templatesdir_mono}/windows_release_arm64_console.exe
+  cp out/windows/x86_64/templates-mono/redot.windows.template_debug.x86_64.mono.exe ${templatesdir_mono}/windows_debug_x86_64.exe
+  cp out/windows/x86_64/templates-mono/redot.windows.template_release.x86_64.mono.exe ${templatesdir_mono}/windows_release_x86_64.exe
+  cp out/windows/x86_32/templates-mono/redot.windows.template_debug.x86_32.mono.exe ${templatesdir_mono}/windows_debug_x86_32.exe
+  cp out/windows/x86_32/templates-mono/redot.windows.template_release.x86_32.mono.exe ${templatesdir_mono}/windows_release_x86_32.exe
+  cp out/windows/arm64/templates-mono/redot.windows.template_debug.arm64.llvm.mono.exe ${templatesdir_mono}/windows_debug_arm64.exe
+  cp out/windows/arm64/templates-mono/redot.windows.template_release.arm64.llvm.mono.exe ${templatesdir_mono}/windows_release_arm64.exe
+  cp out/windows/x86_64/templates-mono/redot.windows.template_debug.x86_64.mono.console.exe ${templatesdir_mono}/windows_debug_x86_64_console.exe
+  cp out/windows/x86_64/templates-mono/redot.windows.template_release.x86_64.mono.console.exe ${templatesdir_mono}/windows_release_x86_64_console.exe
+  cp out/windows/x86_32/templates-mono/redot.windows.template_debug.x86_32.mono.console.exe ${templatesdir_mono}/windows_debug_x86_32_console.exe
+  cp out/windows/x86_32/templates-mono/redot.windows.template_release.x86_32.mono.console.exe ${templatesdir_mono}/windows_release_x86_32_console.exe
+  cp out/windows/arm64/templates-mono/redot.windows.template_debug.arm64.llvm.mono.console.exe ${templatesdir_mono}/windows_debug_arm64_console.exe
+  cp out/windows/arm64/templates-mono/redot.windows.template_release.arm64.llvm.mono.console.exe ${templatesdir_mono}/windows_release_arm64_console.exe
 
   ## macOS (Mono) ##
 
@@ -509,7 +509,7 @@ if [ "${build_mono}" == "1" ]; then
   rm -rf Godot_mono.app
   cp -r git/misc/dist/macos_tools.app Godot_mono.app
   mkdir -p Godot_mono.app/Contents/{MacOS,Resources}
-  cp out/macos/tools-mono/godot.macos.editor.universal.mono Godot_mono.app/Contents/MacOS/Godot
+  cp out/macos/tools-mono/redot.macos.editor.universal.mono Godot_mono.app/Contents/MacOS/Godot
   cp -rp out/macos/tools-mono/GodotSharp Godot_mono.app/Contents/Resources/GodotSharp
   chmod +x Godot_mono.app/Contents/MacOS/Godot
   zip -q -9 -r "${reldir_mono}/${binname}.zip" Godot_mono.app
@@ -520,8 +520,8 @@ if [ "${build_mono}" == "1" ]; then
   rm -rf macos_template.app
   cp -r git/misc/dist/macos_template.app .
   mkdir -p macos_template.app/Contents/{MacOS,Resources}
-  cp out/macos/templates-mono/godot.macos.template_debug.universal.mono macos_template.app/Contents/MacOS/godot_macos_debug.universal
-  cp out/macos/templates-mono/godot.macos.template_release.universal.mono macos_template.app/Contents/MacOS/godot_macos_release.universal
+  cp out/macos/templates-mono/redot.macos.template_debug.universal.mono macos_template.app/Contents/MacOS/godot_macos_debug.universal
+  cp out/macos/templates-mono/redot.macos.template_release.universal.mono macos_template.app/Contents/MacOS/godot_macos_release.universal
   chmod +x macos_template.app/Contents/MacOS/godot_macos*
   zip -q -9 -r "${templatesdir_mono}/macos.zip" macos_template.app
   rm -rf macos_template.app
@@ -558,8 +558,8 @@ if [ "${build_mono}" == "1" ]; then
   ## Web (Mono) ##
 
   # Templates
-  cp out/web/templates-mono/godot.web.template_debug.wasm32.mono.zip ${templatesdir_mono}/web_debug.zip
-  cp out/web/templates-mono/godot.web.template_release.wasm32.mono.zip ${templatesdir_mono}/web_release.zip
+  cp out/web/templates-mono/redot.web.template_debug.wasm32.mono.zip ${templatesdir_mono}/web_debug.zip
+  cp out/web/templates-mono/redot.web.template_release.wasm32.mono.zip ${templatesdir_mono}/web_release.zip
 
   fi
 
